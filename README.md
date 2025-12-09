@@ -45,7 +45,7 @@
 [![Watch the video](assets/demo.png)](https://www.youtube.com/watch?v=srbsGlLNpAc)
 
 <strong>👀 More Demos:</strong> <br>
-🤖 Human-AI Conversation &nbsp;|&nbsp; ♾️ Infinite Video &nbsp;|&nbsp; 🎭 Diverse Characters &nbsp;|&nbsp; 🎬 Animated Tech Explanation <br>
+:robot: Human-AI Conversation &nbsp;|&nbsp; ♾️ Infinite Video &nbsp;|&nbsp; 🎭 Diverse Characters &nbsp;|&nbsp; 🎬 Animated Tech Explanation <br>
 <a href="https://liveavatar.github.io/">
   <strong>👉 Click Here to Visit Project Page! 🌐</strong>
 </a>
