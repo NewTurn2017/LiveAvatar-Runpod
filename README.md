@@ -1,3 +1,24 @@
+## 🚀 RunPod Quick Start (Single GPU)
+
+```bash
+# 1. Clone repository
+cd /workspace
+git clone https://github.com/NewTurn2017/LiveAvatar-Runpod.git LiveAvatar
+cd LiveAvatar
+
+# 2. Run installation
+chmod +x install.sh run.sh
+./install.sh
+
+# 3. Start server
+./run.sh
+```
+
+> 📌 **Requirements**: GPU with 48GB+ VRAM (A100, H100, RTX 6000 Ada, etc.)
+> 📌 **Share URL**: After starting, a public Gradio URL will be generated automatically.
+
+---
+
 <div align="center">
 
 <p align="center">
