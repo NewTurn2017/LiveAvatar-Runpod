@@ -820,7 +820,7 @@ def main():
         demo.launch(
             server_name=args.server_name,
             server_port=args.server_port,
-            share=False
+            share=True
         )
     else:
         # Other ranks enter worker loop to wait for and process requests
