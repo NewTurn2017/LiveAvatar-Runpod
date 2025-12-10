@@ -74,10 +74,11 @@ print_status "Step 5: Installing Flash Attention 2.8.3..."
 pip install psutil ninja packaging
 
 # Download pre-built wheel
-FLASH_ATTN_URL="https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp310-cp310-linux_x86_64.whl"
-wget -q -O /tmp/flash_attn.whl "$FLASH_ATTN_URL"
-pip install /tmp/flash_attn.whl
-rm /tmp/flash_attn.whl
+FLASH_ATTN_WHEEL="flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp310-cp310-linux_x86_64.whl"
+FLASH_ATTN_URL="https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/${FLASH_ATTN_WHEEL}"
+wget -q -O /tmp/${FLASH_ATTN_WHEEL} "$FLASH_ATTN_URL"
+pip install /tmp/${FLASH_ATTN_WHEEL}
+rm -f /tmp/${FLASH_ATTN_WHEEL}
 print_status "Flash Attention installed successfully"
 
 # Step 6: Install requirements
