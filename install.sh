@@ -88,7 +88,7 @@ pip install -r requirements.txt
 
 # Step 7: Install additional dependencies
 print_status "Step 7: Installing additional dependencies..."
-pip install gradio hf_transfer
+pip install gradio hf_transfer deep-translator
 
 # Step 8: Download models
 print_status "Step 8: Downloading models (this may take a while)..."

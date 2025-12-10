@@ -14,6 +14,7 @@ import gradio as gr
 import torch
 import torch.distributed as dist
 from PIL import Image
+from deep_translator import GoogleTranslator
 
 from liveavatar.models.wan.wan_2_2.configs import MAX_AREA_CONFIGS, SIZE_CONFIGS, SUPPORTED_SIZES, WAN_CONFIGS
 from liveavatar.models.wan.wan_2_2.distributed.util import init_distributed_group
@@ -565,11 +566,20 @@ def create_gradio_interface():
             with gr.Column():
                 gr.Markdown("### 📥 기본 입력")
                 prompt_input = gr.Textbox(
-                    label="프롬프트",
-                    placeholder="생성할 비디오 내용을 설명하세요...",
+                    label="프롬프트 (영문)",
+                    placeholder="생성할 비디오 내용을 영문으로 설명하세요...",
                     value=EXAMPLE_PROMPT["s2v-14B"]["prompt"],
                     lines=5
                 )
+
+                with gr.Row():
+                    prompt_ko_input = gr.Textbox(
+                        label="한글 프롬프트",
+                        placeholder="한글로 작성 후 번역 버튼을 클릭하세요...",
+                        lines=2,
+                        scale=4
+                    )
+                    translate_btn = gr.Button("🌐 영문 번역", scale=1)
 
                 # Image input with gallery
                 image_input = gr.Image(
@@ -724,6 +734,17 @@ def create_gradio_interface():
                 status = f"❌ 오류: {str(e)}"
                 return None, status
         
+        def translate_ko_to_en(korean_text):
+            """Translate Korean text to English using Google Translate"""
+            if not korean_text or korean_text.strip() == "":
+                return ""
+            try:
+                translator = GoogleTranslator(source='ko', target='en')
+                translated = translator.translate(korean_text)
+                return translated
+            except Exception as e:
+                return f"번역 오류: {str(e)}"
+
         def select_example_image(evt: gr.SelectData):
             """Handle example image selection"""
             selected_index = evt.index
@@ -732,25 +753,31 @@ def create_gradio_interface():
                 if os.path.exists(img_path):
                     return img_path
             return None
-        
+
         def select_example_audio(audio_path):
             """Handle example audio selection"""
             if audio_path and os.path.exists(audio_path):
                 return audio_path
             return None
-        
+
         # Connect event handlers
+        translate_btn.click(
+            fn=translate_ko_to_en,
+            inputs=prompt_ko_input,
+            outputs=prompt_input
+        )
+
         example_gallery.select(
             fn=select_example_image,
             outputs=image_input
         )
-        
+
         example_audio_dropdown.change(
             fn=select_example_audio,
             inputs=example_audio_dropdown,
             outputs=audio_input
         )
-        
+
         generate_btn.click(
             fn=generate_wrapper,
             inputs=[
